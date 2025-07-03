@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% extends "base.html" %} {% block title %}Request Asset{% endblock %} {% block
+content %}
+<h2 class="mb-4">Request an Available Asset</h2>
+<!-- Form for users to request an asset -->
+<form method="POST" class="mb-3">
+  {{ form.hidden_tag() }}
+  <div class="mb-3">
+    {{ form.asset_id.label(class="form-label") }} {{
+    form.asset_id(class="form-select") }}
+  </div>
+  <div class="mb-3">
+    {{ form.reason.label(class="form-label") }} {{
+    form.reason(class="form-control", rows=4) }}
+  </div>
+
+  {% if unavailable_assets %}
+  <!-- Display unavailable assets to inform the user -->
+  <div class="alert alert-warning mt-4">
+    <h5>Currently Unavailable Assets:</h5>
+    <ul class="mb-0">
+      {% for asset, user in unavailable_assets %}
+      <li>{{ asset.name }} ({{ asset.type }}) - Assigned to {{ user }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  <div class="mb-3">{{ form.submit(class="btn btn-primary") }}</div>
+</form>
+
+<p>
+  <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary"
+    >Back to Dashboard</a
+  >
+</p>
+{% endblock %}

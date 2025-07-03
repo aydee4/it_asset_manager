@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% extends "base.html" %} {% block title %}Register{% endblock %} {% block
+content %}
+<h2 class="mb-4">Register</h2>
+<!-- Registration form with username/password constraints -->
+<form method="POST" class="mb-3">
+  {{ form.hidden_tag() }}
+  <div class="mb-3">
+    {{ form.username.label(class="form-label") }} {{
+    form.username(class="form-control") }}
+    <div class="form-text">
+      Username must be 3-20 characters, letters/numbers only.
+    </div>
+  </div>
+  <div class="mb-3">
+    {{ form.password.label(class="form-label") }} {{
+    form.password(class="form-control") }}
+    <div class="form-text">Password must be 8-20 characters.</div>
+  </div>
+  <div class="mb-3">{{ form.submit(class="btn btn-primary") }}</div>
+</form>
+<p>
+  Already have an account? <a href="{{ url_for('login') }}">Log in here</a>.
+</p>
+{% endblock %}

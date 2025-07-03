@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% extends "base.html" %} {% block title %}Login{% endblock %} {% block content
+%}
+<h2 class="mb-4">Login</h2>
+<!-- Login form: handled by WTForms -->
+<form method="POST" class="mb-3">
+  {{ form.hidden_tag() }}
+  <div class="mb-3">
+    {{ form.username.label(class="form-label") }} {{
+    form.username(class="form-control") }}
+  </div>
+  <div class="mb-3">
+    {{ form.password.label(class="form-label") }} {{
+    form.password(class="form-control") }}
+  </div>
+  <div class="mb-3">{{ form.submit(class="btn btn-primary") }}</div>
+</form>
+<!-- Link for users without an account -->
+<p>
+  Don't have an account? <a href="{{ url_for('register') }}">Register here</a>.
+</p>
+{% endblock %}

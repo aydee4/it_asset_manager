@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% block title %}Edit Asset{% endblock %}
+{% block content %}
+<h2 class="mb-4">Edit Asset</h2>
+<!-- Form for admins to edit asset details -->
+<form method="POST" class="mb-3">
+  <div class="mb-3">
+    <label class="form-label">Name</label>
+    <input type="text" name="name" class="form-control" value="{{ asset.name }}" required />
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Serial Number</label>
+    <input type="text" name="serial" class="form-control" value="{{ asset.serial_number }}" required />
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Type</label>
+    <input type="text" name="type" class="form-control" value="{{ asset.type }}" required />
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Status</label>
+    <select name="status" class="form-select">
+      <option value="available" {% if asset.status == 'available' %}selected{% endif %}>Available</option>
+      <option value="assigned" {% if asset.status == 'assigned' %}selected{% endif %}>Assigned</option>
+      <option value="maintenance" {% if asset.status == 'maintenance' %}selected{% endif %}>Maintenance</option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <button type="submit" class="btn btn-primary">Update Asset</button>
+  </div>
+</form>
+<p><a href="{{ url_for('asset_list') }}" class="btn btn-outline-secondary">Back to Assets</a></p>
+{% endblock %}

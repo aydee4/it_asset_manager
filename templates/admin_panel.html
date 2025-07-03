@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% extends "base.html" %} {% block title %}Admin Panel{% endblock %} {% block
+content %}
+<h2 class="mb-4">Pending Requests</h2>
+<!-- Table showing all pending asset requests for admins to approve or deny -->
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Asset</th>
+      <th>Reason</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for req in requests %}
+    <tr>
+      <td>{{ req.user.username }}</td>
+      <td>{{ req.asset.name }}</td>
+      <td>{{ req.reason }}</td>
+      <td>
+        <a
+          href="{{ url_for('approve_request', request_id=req.id) }}"
+          class="btn btn-success btn-sm"
+          >Approve</a
+        >
+        <a
+          href="{{ url_for('deny_request', request_id=req.id) }}"
+          class="btn btn-danger btn-sm"
+          >Deny</a
+        >
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<!-- Navigation buttons for admins -->
+<p>
+  <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary"
+    >Back to Dashboard</a
+  >
+</p>
+<p>
+  <a href="{{ url_for('asset_list') }}" class="btn btn-info mb-3"
+    >Manage Assets</a
+  >
+</p>
+{% endblock %}

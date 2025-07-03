@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% extends "base.html" %} {% block title %}Dashboard{% endblock %} {% block
+content %}
+<h2 class="mb-3">Welcome, {{ current_user.username }}!</h2>
+<!-- Show user role -->
+<p class="mb-4">
+  Your role: <span class="badge bg-secondary">{{ current_user.role }}</span>
+</p>
+
+<h3>Assets</h3>
+<!-- List assets with colour-coded status badges -->
+<ul class="list-group mb-4">
+  {% for asset in assets %}
+  <li class="list-group-item">
+    <div class="d-flex justify-content-between align-items-center">
+      <span>{{ asset.name }} ({{ asset.type }})</span>
+      <span
+        class="badge {% if asset.status == 'available' %}bg-success {% elif asset.status == 'assigned' %}bg-danger {% elif asset.status == 'maintenance' %}bg-warning text-dark {% endif %}"
+      >
+        {{ asset.status }}
+      </span>
+    </div>
+
+    {% if asset.status == 'assigned' %} {% set active_request = asset.requests
+    |selectattr('status', 'equalto', 'approved') |list|first %}
+    <div class="text-muted ms-2">
+      Assigned to: {{ active_request.user.username if active_request else
+      'Unknown' }}
+    </div>
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>
+
+<!-- Conditional buttons for users and admins -->
+{% if current_user.role == 'user' %}
+<p>
+  <a href="{{ url_for('request_asset') }}" class="btn btn-primary"
+    >Request an Asset</a
+  >
+</p>
+{% elif current_user.role == 'admin' %}
+<p>
+  <a href="{{ url_for('admin') }}" class="btn btn-warning position-relative">
+    Pending Requests {% if pending_count > 0 %}
+    <span
+      class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+      >{{ pending_count }}</span
+    >
+    {% endif %}
+  </a>
+  <a href="{{ url_for('asset_list') }}" class="btn btn-info">Manage Assets</a>
+</p>
+{% endif %}
+
+<p>
+  <a href="{{ url_for('logout') }}" class="btn btn-outline-secondary">Logout</a>
+</p>
+{% endblock %}
