@@ -8,10 +8,17 @@ content %}
   <div class="mb-3">
     {{ form.asset_id.label(class="form-label") }} {{
     form.asset_id(class="form-select") }}
+    {% for error in form.asset_id.errors %}
+    <div class="text-danger small">{{ error }}</div>
+    {% endfor %}
   </div>
   <div class="mb-3">
     {{ form.reason.label(class="form-label") }} {{
     form.reason(class="form-control", rows=4) }}
+    {% for error in form.reason.errors %}
+    <div class="text-danger small">{{ error }}</div>
+    {% endfor %}
+    <div class="form-text">Reason must be between 10 and 500 characters.</div>
   </div>
 
   {% if unavailable_assets %}

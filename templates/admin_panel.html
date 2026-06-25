@@ -19,16 +19,22 @@ content %}
       <td>{{ req.asset.name }}</td>
       <td>{{ req.reason }}</td>
       <td>
-        <a
-          href="{{ url_for('approve_request', request_id=req.id) }}"
-          class="btn btn-success btn-sm"
-          >Approve</a
+        <form
+          method="POST"
+          action="{{ url_for('approve_request', request_id=req.id) }}"
+          class="d-inline"
         >
-        <a
-          href="{{ url_for('deny_request', request_id=req.id) }}"
-          class="btn btn-danger btn-sm"
-          >Deny</a
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+          <button type="submit" class="btn btn-success btn-sm">Approve</button>
+        </form>
+        <form
+          method="POST"
+          action="{{ url_for('deny_request', request_id=req.id) }}"
+          class="d-inline"
         >
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+          <button type="submit" class="btn btn-danger btn-sm">Deny</button>
+        </form>
       </td>
     </tr>
     {% endfor %}

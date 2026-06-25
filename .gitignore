@@ -2,6 +2,11 @@
 __pycache__/
 *.py[cod]
 
+# Tool caches
+.cache/
+.pytest_cache/
+.ruff_cache/
+
 # Virtual environments
 venv/
 
@@ -10,3 +15,10 @@ venv/
 
 # Environment variables (if you ever have .env files)
 .env
+
+# Local database files
+instance/
+*.db
+
+# Local AI context files
+AI_CONTEXT.md

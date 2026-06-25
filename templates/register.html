@@ -8,6 +8,9 @@ content %}
   <div class="mb-3">
     {{ form.username.label(class="form-label") }} {{
     form.username(class="form-control") }}
+    {% for error in form.username.errors %}
+    <div class="text-danger small">{{ error }}</div>
+    {% endfor %}
     <div class="form-text">
       Username must be 3-20 characters, letters/numbers only.
     </div>
@@ -15,7 +18,19 @@ content %}
   <div class="mb-3">
     {{ form.password.label(class="form-label") }} {{
     form.password(class="form-control") }}
-    <div class="form-text">Password must be 8-20 characters.</div>
+    {% for error in form.password.errors %}
+    <div class="text-danger small">{{ error }}</div>
+    {% endfor %}
+    <div class="form-text">
+      Password must be 10-128 characters and include uppercase, lowercase, a number, and a symbol.
+    </div>
+  </div>
+  <div class="mb-3">
+    {{ form.confirm_password.label(class="form-label") }} {{
+    form.confirm_password(class="form-control") }}
+    {% for error in form.confirm_password.errors %}
+    <div class="text-danger small">{{ error }}</div>
+    {% endfor %}
   </div>
   <div class="mb-3">{{ form.submit(class="btn btn-primary") }}</div>
 </form>
