@@ -42,7 +42,7 @@ content %}
 {% elif current_user.role == 'admin' %}
 <p>
   <a href="{{ url_for('admin') }}" class="btn btn-warning position-relative">
-    Pending Requests {% if pending_count > 0 %}
+    Pending Requests {% if pending_count %}
     <span
       class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
       >{{ pending_count }}</span
@@ -53,7 +53,8 @@ content %}
 </p>
 {% endif %}
 
-<p>
-  <a href="{{ url_for('logout') }}" class="btn btn-outline-secondary">Logout</a>
-</p>
+<form method="POST" action="{{ url_for('logout') }}" class="d-inline">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+  <button type="submit" class="btn btn-outline-secondary">Logout</button>
+</form>
 {% endblock %}
